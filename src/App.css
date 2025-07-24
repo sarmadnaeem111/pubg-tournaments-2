@@ -1,0 +1,287 @@
+/* Custom App Styles */
+
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navbar Gradient */
+.navbar-gradient {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d) !important;
+}
+
+/* Tournament Cards */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Tournament Carousel */
+.tournament-carousel .carousel-control-prev,
+.tournament-carousel .carousel-control-next {
+  width: 5%;
+}
+
+.carousel-card-container {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Admin Dashboard */
+.admin-card {
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.admin-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Hero Section */
+:root {
+  --hero-background: url('./assets/hero-background-optimized.jpg');
+}
+
+.bg-dark.text-white.py-5 {
+  background-image: var(--hero-background);
+  background-size: cover;
+  margin-top: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 400px;
+  transition: background-image 0.5s ease-in;
+}
+
+.bg-dark.text-white.py-5::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.bg-dark.text-white.py-5 .container {
+  position: relative;
+  z-index: 2;
+}
+
+.profile-header {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Tournament Status Badges */
+.badge {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50rem;
+}
+
+/* Tournament Status Styling */
+.card-footer.bg-success {
+  transition: background-color 0.5s ease;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d) !important;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .text-muted {
+  color: #e0e0e0 !important;
+}
+
+/* Hero Image Optimizations */
+.hero-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Table Styles */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Form Styles */
+.form-control,
+.form-select {
+  max-width: 100%;
+}
+
+/* Card adjustments for mobile */
+.card-body {
+  padding: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .card-title {
+    font-size: 1.25rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive adjustments */
+
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .carousel-card-container {
+    padding: 5px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .card {
+    margin-bottom: 15px;
+  }
+  
+  .bg-dark.text-white.py-5 {
+    min-height: 300px;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .btn-lg {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .display-4 {
+    font-size: 1.8rem;
+  }
+  
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .carousel-card-container {
+    padding: 8px;
+  }
+  
+  h1 {
+    font-size: 1.7rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  .bg-dark.text-white.py-5 {
+    min-height: 350px;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .carousel-card-container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .bg-dark.text-white.py-5 {
+    min-height: 380px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .carousel-card-container {
+    padding: 15px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .carousel-card-container {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isCurrentUser(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isValidString(value) {
+      return value is string && value.size() > 0 && value.size() < 1000;
+    }
+    
+    function isValidNumber(value) {
+      return value is number && value >= 0;
+    }
+    
+    function isValidTournamentStatus(status) {
+      return status in ['upcoming', 'live', 'completed', 'cancelled'];
+    }
+    
+    // User collection rules
+    match /users/{userId} {
+      // Anyone can read their own user document
+      // Only admins can read other user documents
+      allow read: if isCurrentUser(userId) || isAdmin();
+      
+      // Only admins can create new user documents
+      // The auth system will handle user creation
+      allow create: if isAdmin();
+      
+      // Users can update their own documents (except role field)
+      // Admins can update any user document
+      allow update: if (isCurrentUser(userId) && 
+                      !('role' in request.resource.data) || 
+                      request.resource.data.role == resource.data.role) || 
+                     isAdmin();
+      
+      // Only admins can delete user documents
+      allow delete: if isAdmin();
+    }
+    
+    // Tournament collection rules
+    match /tournaments/{tournamentId} {
+      // Anyone can read tournament documents
+      allow read: if true;
+      
+      // Only admins can create tournaments
+      allow create: if isAdmin() && 
+                     isValidString(request.resource.data.name) && 
+                     isValidNumber(request.resource.data.entryFee) && 
+                     isValidNumber(request.resource.data.capacity) && 
+                     isValidTournamentStatus(request.resource.data.status);
+      
+      // Only admins can update tournament details
+      // Users can update participants array if they're joining
+      allow update: if isAdmin() || 
+                     (isAuthenticated() && 
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participants']) && 
+                      request.resource.data.participants.hasAll(resource.data.participants) && 
+                      request.resource.data.participants.size() <= resource.data.capacity);
+      
+      // Only admins can delete tournaments
+      allow delete: if isAdmin();
+    }
+    
+    // Admin Settings collection rules
+    match /adminSettings/{settingId} {
+      // Only admins can write to admin settings
+      allow write: if isAdmin();
+      
+      // Anyone can read payment account information
+      // This allows users to see the payment details when recharging
+      allow read: if settingId == 'paymentAccounts' || isAdmin();
+    }
+    
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
